@@ -1,8 +1,8 @@
 import unittest
-from config.configuration import Configuration
-from config.config_gateway.in_memory import InMemoryConfigFileGateway
-from config.config_gateway.base_config_file_gateway import ConfigValueNotSetException,\
-    CorruptConfigFileException
+from config.configuration import Configuration, EmailNotSetException,\
+    PasswordNotSetException
+from config.config_file_gateway.in_memory import InMemoryConfigFileGateway
+from config.config_file_gateway.base import CorruptConfigFileException
 
 class ConfigurationTest(unittest.TestCase):
     
@@ -10,12 +10,11 @@ class ConfigurationTest(unittest.TestCase):
         self.gateway =  InMemoryConfigFileGateway()
         Configuration.gateway = self.gateway
     
-    def test_if_missing_attribute_then_raise_exception_with_info_about_missing_field(self):
-        try:
-            Configuration().get_email_address()
-            self.fail("Should have raised exception")
-        except ConfigValueNotSetException, e:
-            self.assertEquals('email_address', e.field_name)
+    def test_if_missing_email_then_raise_exception(self):
+        self.assertRaises(EmailNotSetException, Configuration.get_email_address)
+
+    def test_if_missing_password_then_raise_exception(self):
+        self.assertRaises(PasswordNotSetException, Configuration.get_password)
             
     def test_if_file_is_not_valid_json_dict_then_raise_exception(self):
         self.gateway.save_data("not valid JSON")

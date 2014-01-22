@@ -1,8 +1,16 @@
 from common.domain_object import DomainObject
 
-class Email(DomainObject):
+class EmailFromMyself(DomainObject):
     
-    def __init__(self, subject, body, to_addresses):
+    def __init__(self, subject, body, to_address):
         self.subject = subject
         self.body = body
-        self.to_addresses = to_addresses
+        self.to_address = to_address
+        
+    @property
+    def from_address(self):
+        return self.to_address
+    
+    @property
+    def to_addresses(self):
+        return [self.to_address]

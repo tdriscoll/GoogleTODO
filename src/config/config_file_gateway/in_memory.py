@@ -1,9 +1,9 @@
-from config.config_gateway.base_config_file_gateway import BaseConfigFileGateway
+from config.config_file_gateway.base import BaseConfigFileGateway
 
 class InMemoryConfigFileGateway(BaseConfigFileGateway):
     
     def __init__(self):
-        self.save_json({})
+        self.data = self.DEFAULT_VALUE
     
     def get_data(self):
         return self.data
