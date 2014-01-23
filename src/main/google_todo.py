@@ -4,7 +4,6 @@
 
 import sys
 import os
-from optparse import OptionParser
 from emailing.task_mailer import TaskMailer, MissingTaskException
 from config.configuration import Configuration, EmailNotSetException,\
     PasswordNotSetException
@@ -19,7 +18,7 @@ if os.name == 'nt':
 else:
     Configuration.gateway = HomeDirectoryConfigFileGateway(PROGRAM_NAME)
 
-def main(argv=None):
+def main():
     while True:
         try:
             email_client = GmailClient(Configuration.get_email_address(), Configuration.get_password())
