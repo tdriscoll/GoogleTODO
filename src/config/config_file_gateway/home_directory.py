@@ -1,10 +1,11 @@
 from config.config_file_gateway.base import BaseConfigFileGateway
-from os.path import isfile
+from os.path import isfile, expanduser
 
 class HomeDirectoryConfigFileGateway(BaseConfigFileGateway):
     
     def __init__(self, program_name):
-        self.FILE_PATH = '~/.{program_name}'.format(program_name = program_name)
+        home_dir = expanduser('~')
+        self.FILE_PATH = '{home_dir}/.{program_name}'.format(home_dir=home_dir, program_name = program_name)
     
     def save_data(self, data):
         try:

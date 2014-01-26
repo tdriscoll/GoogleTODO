@@ -14,7 +14,7 @@ class GmailClient(object):
           "",
           email.body
           ])
-        
+        print "emailing..."
         server = smtplib.SMTP('smtp.gmail.com:587')
         server.ehlo()
         server.starttls()
