@@ -1,4 +1,5 @@
 import smtplib
+from emailing.email import BadUsernamePasswordException
 
 class GmailClient(object):
     
@@ -18,6 +19,9 @@ class GmailClient(object):
         server = smtplib.SMTP('smtp.gmail.com:587')
         server.ehlo()
         server.starttls()
-        server.login(self.user_name, self.password)
+        try:
+            server.login(self.user_name, self.password)
+        except smtplib.SMTPAuthenticationError:
+            raise BadUsernamePasswordException()
         server.sendmail( email.from_address, email.to_addresses, msg)
         server.quit()

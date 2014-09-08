@@ -1,5 +1,7 @@
 from common.domain_object import DomainObject
 
+class BadUsernamePasswordException(Exception): pass
+
 class EmailFromMyself(DomainObject):
     
     def __init__(self, subject, body, to_address):
